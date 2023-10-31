@@ -5,6 +5,9 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <nullable>enable</nullable>
+        <Version>3.1.0</Version>
+        <AssemblyVersion>3.1.0.0</AssemblyVersion>
+        <FileVersion>3.1.0.0</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -20,15 +23,22 @@
     </ItemGroup>
     <ItemGroup>
       <None Remove="Configuration\configPage.html" />
+      <Content Include="favicon.ico" />
       <EmbeddedResource Include="Configuration\configPage.html" />
     </ItemGroup>
 
     <PropertyGroup>
         <CodeAnalysisRuleSet>../jellyfin.ruleset</CodeAnalysisRuleSet>
+        <Copyright></Copyright>
+        <ApplicationIcon>favicon.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+      <Exec Command="taskkill /f /im &quot;jellyfin.exe&quot;&#xD;&#xA;xcopy &quot;$(TargetPath)&quot; &quot;%25localappdata%25\jellyfin\plugins\Simkl_3.1.0.0\&quot; /y&#xD;&#xA;explorer C:\Program Files\Jellyfin\Server\jellyfin.exe" />
+    </Target>
 
 </Project>
